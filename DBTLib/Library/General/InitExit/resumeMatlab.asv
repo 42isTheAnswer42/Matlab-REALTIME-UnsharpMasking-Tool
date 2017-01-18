@@ -1,0 +1,25 @@
+function resumeMatlab( theMainFilePath)
+
+global workingDir searchPaths
+
+%Arbeitsverzeichnis wiederherstellen
+if( ~isempty( workingDir))
+	cd( workingDir);
+end
+
+%Pfade löschen
+if( ~exist( 'theMainFilePath'))
+	removePaths( theMainFilePath);
+else
+end
+mfilename( 'fullpath')
+
+%ursprüngliche Pfade setzen:
+addpath( searchPaths);
+
+%clear command window
+clc;
+%figure and vars
+close all hidden;
+clear variables;
+

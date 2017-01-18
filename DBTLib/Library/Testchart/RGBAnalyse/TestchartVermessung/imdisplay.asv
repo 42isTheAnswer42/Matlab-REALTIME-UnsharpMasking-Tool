@@ -1,0 +1,13 @@
+function imdisplay( theImage, theWindowTitle, theGamma)
+
+myScreenSize = get(0,'ScreenSize');
+
+figure('Position',[1 1 myScreenSize(3) myScreenSize(4)], 'Name', theWindowTitle, 'NumberTitle', 'off');
+iptsetpref( 'ImshowBorder', 'tight');
+
+
+myGammaLut = ((0:2^16-1) / (2^16-1)).^(1/theGamma);
+imshow( myGammaLut( im2uint16( theImage));
+truesize;
+
+

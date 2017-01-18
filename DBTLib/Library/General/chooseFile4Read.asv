@@ -1,0 +1,24 @@
+function theFileNamePlusPath = chooseFile4Read( theDialogTitle, theFilter, thePath, theFMultiSelect)
+% usage:                    theFileNamePlusPath = chooseFile4Read( theDialogTitle, theFilter, thePath, theFMultiSelect)
+% Beschreibung:             Auswahlbox zur Dateiauswahl Lesen
+% theFileNamePlusPath:      vollständiger Dateiname inkl. Pfad
+% theFilter:                Liste von Dateitypen, die angezeigt werden sollen, z.B. '*.tif'
+% thePath:                  Default-Pfad, der eingestellt wird, wenn vorhanden
+% theFMultiSelect
+
+myWorkingDir = cd;
+if( (strcmp( genpath( thePath), '') == 0) && (strcmp( thePath, '') == 0))
+    cd( thePath);
+end
+[ myFileName, myTotPath] = uigetfile( theFilter, theDialogTitle);
+
+cd( myWorkingDir);
+
+if( myFileName == 0)
+    theFileNamePlusPath = [];
+else
+    theFileNamePlusPath = fullfile( myTotPath, myFileName);
+end %if
+
+end %chooseFile
+

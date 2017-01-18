@@ -1,0 +1,1405 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>DBT_fin</title><meta name="generator" content="MATLAB 8.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2016-10-23"><meta name="DC.source" content="DBT_fin.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="keyword">function</span> varargout = DBT_fin(varargin)
+<span class="comment">% DBT_FIN MATLAB code for DBT_fin.fig</span>
+<span class="comment">%      DBT_FIN, by itself, creates a new DBT_FIN or raises the existing</span>
+<span class="comment">%      singleton*.</span>
+<span class="comment">%</span>
+<span class="comment">%      H = DBT_FIN returns the handle to a new DBT_FIN or the handle to</span>
+<span class="comment">%      the existing singleton*.</span>
+<span class="comment">%</span>
+<span class="comment">%      DBT_FIN('CALLBACK',hObject,eventData,handles,...) calls the local</span>
+<span class="comment">%      function named CALLBACK in DBT_FIN.M with the given input arguments.</span>
+<span class="comment">%</span>
+<span class="comment">%      DBT_FIN('Property','Value',...) creates a new DBT_FIN or raises the</span>
+<span class="comment">%      existing singleton*.  Starting from the left, property value pairs are</span>
+<span class="comment">%      applied to the GUI before DBT_fin_OpeningFcn gets called.  An</span>
+<span class="comment">%      unrecognized property name or invalid value makes property application</span>
+<span class="comment">%      stop.  All inputs are passed to DBT_fin_OpeningFcn via varargin.</span>
+<span class="comment">%</span>
+<span class="comment">%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one</span>
+<span class="comment">%      instance to run (singleton)".</span>
+<span class="comment">%</span>
+<span class="comment">% See also: GUIDE, GUIDATA, GUIHANDLES</span>
+
+<span class="comment">% Edit the above text to modify the response to help DBT_fin</span>
+
+<span class="comment">% Last Modified by GUIDE v2.5 19-Oct-2016 13:15:04</span>
+
+<span class="comment">% Begin initialization code - DO NOT EDIT</span>
+gui_Singleton = 1;
+gui_State = struct(<span class="string">'gui_Name'</span>,       mfilename, <span class="keyword">...</span>
+                   <span class="string">'gui_Singleton'</span>,  gui_Singleton, <span class="keyword">...</span>
+                   <span class="string">'gui_OpeningFcn'</span>, @DBT_fin_OpeningFcn, <span class="keyword">...</span>
+                   <span class="string">'gui_OutputFcn'</span>,  @DBT_fin_OutputFcn, <span class="keyword">...</span>
+                   <span class="string">'gui_LayoutFcn'</span>,  [] , <span class="keyword">...</span>
+                   <span class="string">'gui_Callback'</span>,   []);
+<span class="keyword">if</span> nargin &amp;&amp; ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+<span class="keyword">end</span>
+
+<span class="keyword">if</span> nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+<span class="keyword">else</span>
+    gui_mainfcn(gui_State, varargin{:});
+<span class="keyword">end</span>
+<span class="comment">% End initialization code - DO NOT EDIT</span>
+
+
+<span class="comment">% --- Executes just before DBT_fin is made visible.</span>
+<span class="keyword">function</span> DBT_fin_OpeningFcn(hObject, eventdata, handles, varargin)
+<span class="comment">% This function has no output args, see OutputFcn.</span>
+<span class="comment">% hObject    handle to figure</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+<span class="comment">% varargin   command line arguments to DBT_fin (see VARARGIN)</span>
+
+<span class="comment">% Choose default command line output for DBT_fin</span>
+handles.output = hObject;
+
+<span class="comment">% Update handles structure</span>
+guidata(hObject, handles);
+
+<span class="comment">% UIWAIT makes DBT_fin wait for user response (see UIRESUME)</span>
+<span class="comment">% uiwait(handles.figure1);</span>
+
+
+<span class="comment">% --- Outputs from this function are returned to the command line.</span>
+<span class="keyword">function</span> varargout = DBT_fin_OutputFcn(hObject, eventdata, handles)
+<span class="comment">% varargout  cell array for returning output args (see VARARGOUT);</span>
+<span class="comment">% hObject    handle to figure</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Get default command line output from handles structure</span>
+varargout{1} = handles.output;
+
+
+<span class="comment">% --- Executes on button press in pushbutton1.</span>
+<span class="keyword">function</span> pushbutton1_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to pushbutton1 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+[myTotalFileName, myStatus] = getRawFile4Read( <span class="string">'*.*'</span>);
+<span class="keyword">if</span> myStatus==0
+    <span class="keyword">return</span>;
+<span class="keyword">end</span>
+
+[ theRGB, myHeader] = imread( myTotalFileName);
+
+<span class="comment">%Auslesen der Image-Dimensionen</span>
+[width,height,z1] = size(theRGB);
+imshow(theRGB, <span class="string">'Parent'</span>, handles.axes1);
+assignin(<span class="string">'base'</span>,<span class="string">'width'</span>,width);
+assignin(<span class="string">'base'</span>,<span class="string">'height'</span>,height);
+assignin(<span class="string">'base'</span>,<span class="string">'theRGB'</span>,theRGB);
+input.width=width;
+input.height=height;
+<span class="comment">%Umwandlung in lineares RGB</span>
+theRGB = im2double (theRGB);
+theRGB = - log10(theRGB);
+linRGB = 10.^(- theRGB);
+
+
+
+<span class="comment">%Darstellen der RGB-Datei, der Originammmmmmmmmmmmmmmmmmmmmmmm ml-Datei also</span>
+<span class="comment">%imdisplay(linRGB, 'linRGB Original',1.0);</span>
+
+<span class="comment">%Umwandlung in (Agfa-)Lab durch Wandlung in XYZ-Werte und &Uuml;bertragung</span>
+<span class="comment">%dieser in den Lab-Raum.</span>
+<span class="comment">%Agfa-Lab ist Lab, bitte belehren Sie mich eines besseren wenn Sie es</span>
+<span class="comment">%k&ouml;nnen.</span>
+
+RGB2Lab = [1/3, 1/3, 1/3; 1/2, -1/2, 0; 1/4, 1/4, -1/2];
+
+RGB2XYZ =[0.5767309,  0.1855540,  0.1881852;
+                        0.2973769,  0.6273491 , 0.0752741;
+                        0.0270343,  0.0706872 , 0.9911085];
+XYZ2RGB = inv(RGB2XYZ);
+
+theXYZ = imMatMul( linRGB,RGB2XYZ);
+theLab= imXYZ2Lab(theXYZ);
+
+<span class="comment">%Erstellen einer Kopie f&uuml;r das gefilterte Bild</span>
+<span class="comment">%R&uuml;cktransformation in anderen Farbraum zu Testzwecken ob Transformation</span>
+<span class="comment">%vollzogen</span>
+
+theTestforRightConversationMatrix= theLab;
+
+ <span class="comment">%Erstellen einer Kopie in die dann der angepasste L-Channel eingef&uuml;gt</span>
+ <span class="comment">%wird.</span>
+labSharpened = theLab;
+
+noisedLab     = theLab;
+
+<span class="comment">%Separieren des Luminance-Channels. Dieser ist definitiv in Channel 1 zu</span>
+<span class="comment">%finden, da in Channel 2 und 3 negative sowie positive Werte zu finden</span>
+<span class="comment">%sind. Dies ist logisch wenn man bedenkt, dass sich der Farbraum von -a bis +a sowie -b bis +b erstrecken kann. Das Maximimum in Channel 1 betr&auml;gt ebenso 100, was f&uuml;r den</span>
+<span class="comment">%LAB-CHannel in CHannel 1 spricht.</span>
+
+lChannel=theLab(:,:,1);
+<span class="comment">%    imdisplay(theLab(:,:,1), 'the l channel ',2.2);</span>
+input.theRGB=theRGB;
+input.theXYZ=theXYZ;
+input.width=width;
+input.height=height;
+input.theLab=theLab;
+input.lChannel=lChannel;
+input.lChannelTemp=lChannel;
+input.noisedLab  =theLab;
+labTemp=theLab;
+myControl = buildControlDataIE();
+assignin(<span class="string">'base'</span>,<span class="string">'myControl'</span>,myControl);
+assignin(<span class="string">'base'</span>,<span class="string">'input'</span>,input);
+assignin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>,labTemp);
+handles.metricdata.input = input;
+handles.metricdata.myControl = myControl;
+handles.metricdata.input.lChannelTempNoise=lChannel;
+
+
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelTemp'</span>,lChannel);
+
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>,lChannel);
+guidata(hObject,handles);
+
+clear <span class="string">BW</span>;
+
+
+<span class="comment">% --- Executes on slider movement.</span>
+<span class="keyword">function</span> slider1_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider1 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'Value') returns position of slider</span>
+<span class="comment">%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider</span>
+
+<span class="comment">%Erstellen eines Binomialfilters 7. Ordnung</span>
+    h = [1/2 1/2];
+    lChannelTemp = evalin(<span class="string">'base'</span>,<span class="string">'lChannelTemp'</span>);
+binomialCoeff = conv(h,h);
+<span class="keyword">for</span> n = 1:7
+    binomialCoeff = conv(binomialCoeff,h);
+<span class="keyword">end</span>
+myControl=evalin(<span class="string">'base'</span>,<span class="string">'myControl'</span>);
+lChannel=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+labTemp=evalin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>);
+width=handles.metricdata.input.width;
+height=handles.metricdata.input.height;
+
+<span class="comment">%Filtern des L-Channels und schreiben in binomiaLfiltered</span>
+binomiaLfiltered = filter(binomialCoeff, 1, lChannel);
+
+<span class="comment">%Erstellen eines gesch&auml;rften LChannels durch Addition hoher Frequenzen</span>
+<span class="comment">%Schritt 1: Erstellen der Maske</span>
+lChannelSharp=lChannel-binomiaLfiltered;
+
+<span class="comment">%Schritt 2: Addition des gesch&auml;rften Kanten-Bereichs zum Original L-Channel in Abh&auml;ngigkeit</span>
+<span class="comment">% von SHPEdge,</span>
+<span class="comment">% Bei SHPEdge =1 keine Ver&auml;nderung, wie verlangt</span>
+SHPEdge=get(hObject,<span class="string">'Value'</span>);
+SHPEdge=SHPEdge*5;
+kk=get(hObject,<span class="string">'Max'</span>);
+disp(SHPEdge);
+disp(kk);
+<span class="keyword">if</span> SHPEdge==1
+    lChannelNewKante=lChannel;
+<span class="keyword">else</span>
+    lChannelNewKante=lChannel;
+lChannelNewKante=lChannelSharp*(SHPEdge-1)+lChannel;
+<span class="keyword">end</span>
+
+<span class="comment">%Schritt 3: Addition des gesch&auml;rften Korn-Bereichs zum Original L-Channel in Abh&auml;ngigkeit</span>
+<span class="comment">% von SHPArea,</span>
+<span class="comment">% Bei SHPArea =1 keine Ver&auml;nderung, wie verlangt</span>
+
+BW = evalin(<span class="string">'base'</span>,<span class="string">'BW'</span>);
+<span class="keyword">for</span> W=10:width
+    <span class="keyword">for</span> H=10:height
+        <span class="keyword">if</span> (BW(W,H)==1 )
+
+            <span class="keyword">if</span> lChannelNewKante(W,H)&gt;100;
+                disp(lChannelNewKante(W,H));
+               lChannelNewKante(W,H)=100;
+            <span class="keyword">end</span>
+
+
+            lChannelTemp(W,H)=lChannelNewKante(W,H);
+             labTemp(W,H,1) =  lChannelTemp(W,H);
+
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelTemp'</span>,lChannelTemp);
+assignin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>,labTemp);
+<span class="comment">%Anzeigen des verrauschten Bildes durch R&uuml;cktransformation zu LAB und RGB</span>
+ min=get(hObject,<span class="string">'Min'</span>);max=get(hObject,<span class="string">'Max'</span>);
+ disp (min); disp (max);
+ fog=get(hObject,<span class="string">'Value'</span>);disp(fog);
+theXYZ4 = imLab2XYZ(labTemp);
+theRGBSharp3= imMatMul( theXYZ4, myControl.XYZ2RGB);
+
+<span class="comment">%puts the slider value into the edit text component</span>
+set(handles.edit1,<span class="string">'String'</span>,SHPEdge);
+
+
+imshow(theRGBSharp3, <span class="string">'Parent'</span>, handles.axes1);
+
+
+
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> slider1_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider1 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: slider controls usually have a light gray background.</span>
+<span class="keyword">if</span> isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,[.9 .9 .9]);
+<span class="keyword">end</span>
+uicontrol(<span class="string">'Style'</span>, <span class="string">'slider'</span>, <span class="string">'Min'</span>,0,<span class="string">'Max'</span>,1, <span class="string">'SliderStep'</span>,[0.01 0.3], <span class="string">'Value'</span>, 1);
+
+
+<span class="comment">% --- Executes on slider movement.</span>
+<span class="keyword">function</span> slider2_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider2 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'Value') returns position of slider</span>
+<span class="comment">%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider</span>
+
+<span class="comment">%Erstellen eines Binomialfilters 7. Ordnung</span>
+ h = [1/2 1/2];
+binomialCoeff = conv(h,h);
+<span class="keyword">for</span> n = 1:7
+    binomialCoeff = conv(binomialCoeff,h);
+<span class="keyword">end</span>
+lChannelTemp=evalin(<span class="string">'base'</span>,<span class="string">'lChannelTemp'</span>);
+lChannel=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+labTemp=evalin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>);
+BW=evalin(<span class="string">'base'</span>,<span class="string">'BW'</span>);
+
+
+width=handles.metricdata.input.width;
+height=handles.metricdata.input.height;
+
+
+
+<span class="comment">%Filtern des L-Channels und schreiben in binomiaLfiltered</span>
+binomiaLfiltered = filter(binomialCoeff, 1, lChannel);
+
+<span class="comment">%Erstellen eines gesch&auml;rften LChannels durch Addition hoher Frequenzen</span>
+<span class="comment">%Schritt 1: Erstellen der Maske</span>
+lChannelSharp=lChannel-binomiaLfiltered;
+
+SHPArea=get(hObject,<span class="string">'Value'</span>);
+SHPArea=SHPArea*2;
+lChannelNewKorn=lChannelSharp*(SHPArea-1)+lChannel;
+
+
+<span class="comment">%imshow(BW);</span>
+<span class="comment">% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer</span>
+<span class="comment">% notierten 0 befindet sich ein Korn. Nun muss dieses Korn und nur diese</span>
+<span class="comment">% Korn versch&auml;rft werden. Also nimmt man das Originalbild und schreibt an</span>
+<span class="comment">% Stellen an den man eine Korn detektiert hatte im BW bild, den Wert des gesch&auml;rften L-Channels</span>
+<span class="comment">% Und schreibt diesen in das LAB Bild um so ein gesch&auml;rftes Korn zu erhalten.</span>
+<span class="keyword">for</span> W=10:width
+    <span class="keyword">for</span> H=10:height
+        <span class="keyword">if</span> (BW(W,H)==0 )
+
+            <span class="keyword">if</span> lChannelNewKorn(W,H)&gt;100;
+                disp(lChannelNewKorn(W,H));
+               lChannelNewKorn(W,H)=100;
+            <span class="keyword">end</span>
+          lChannelTemp(W,H)=lChannelNewKorn(W,H);
+             labTemp(W,H,1) =  lChannelTemp(W,H);
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelTemp'</span>,lChannelTemp);
+assignin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>,labTemp);
+
+<span class="comment">%Anzeigen des verrauschten Bildes durch R&uuml;cktransformation zu LAB und RGB</span>
+
+theXYZ8 = imLab2XYZ(labTemp);
+myControl=handles.metricdata.myControl;
+theRGBSharp= imMatMul( theXYZ8, myControl.XYZ2RGB);
+
+
+
+
+<span class="comment">%puts the slider value into the edit text component</span>
+set(handles.edit2,<span class="string">'String'</span>,SHPArea);
+imshow(theRGBSharp, <span class="string">'Parent'</span>, handles.axes1);
+
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> slider2_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider2 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: slider controls usually have a light gray background.</span>
+<span class="keyword">if</span> isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,[.9 .9 .9]);
+<span class="keyword">end</span>
+uicontrol(<span class="string">'Style'</span>, <span class="string">'slider'</span>, <span class="string">'Min'</span>,0,<span class="string">'Max'</span>,1, <span class="string">'SliderStep'</span>,[0.01 0.3], <span class="string">'Value'</span>, 1);
+
+
+
+
+
+
+
+
+
+<span class="comment">% --- Executes on slider movement.</span>
+<span class="keyword">function</span> slider3_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider3 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'Value') returns position of slider</span>
+<span class="comment">%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider</span>
+
+<span class="comment">%Auftragen eines weissen Rauschens auf LChannel, vo n daher normieren auf</span>
+<span class="comment">%Werte zwiscehn 0 und 1 ( Teilen durch 100)</span>
+inputm=evalin(<span class="string">'base'</span>,<span class="string">'input'</span>);
+noisedLab=inputm.noisedLab;
+inputm=inputm.lChannel;
+slider=get(hObject,<span class="string">'Max'</span>);
+disp(slider);
+myControl=handles.metricdata.myControl;
+
+sigmaNoise=0;
+sigmaNoise=get(hObject,<span class="string">'Value'</span>);
+
+noise=inputm./100;
+lChannelnoiesd = imnoise(noise,<span class="string">'gaussian'</span>,0,sigmaNoise/100);
+
+<span class="comment">%R&uuml;cktransformation auf Ursprungszustand durch multiplizieren mit 100</span>
+lChannelnoiesd=lChannelnoiesd.*100;
+
+<span class="comment">% Schreiben des vernoisten Channel in das Bild noisedLab</span>
+noisedLab(:,:,1)=lChannelnoiesd(:,:);
+
+<span class="comment">%Anzeigen des verrauschten Bildes durch R&uuml;cktransformation zu LAB und RGB</span>
+assignin(<span class="string">'base'</span>,<span class="string">'noisedLab'</span>,noisedLab);
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>,lChannelnoiesd(:,:));
+theXYZ4 = imLab2XYZ(noisedLab);
+theRGBNOIsed= imMatMul( theXYZ4, myControl.XYZ2RGB);
+
+handles.metricdata.input.lChannelTemp=lChannelnoiesd(:,:);
+
+<span class="comment">%handles.metricdata.input.lChanneltemp=lChannelnoiesd(:,:);</span>
+imshow(theRGBNOIsed, <span class="string">'Parent'</span>, handles.axes1);
+
+
+
+
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> slider3_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider3 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: slider controls usually have a light gray background.</span>
+<span class="keyword">if</span> isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,[.9 .9 .9]);
+
+<span class="keyword">end</span>
+uicontrol(<span class="string">'Style'</span>, <span class="string">'slider'</span>, <span class="string">'Min'</span>,0,<span class="string">'Max'</span>,1  , <span class="string">'SliderStep'</span>,[0.01 0.3], <span class="string">'Value'</span>, 0);
+
+
+<span class="comment">% --- Executes on button press in pushbutton2.</span>
+<span class="keyword">function</span> pushbutton2_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to pushbutton2 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+<span class="comment">%Anlegen eines SobelFilters, dieser gibt BW-Bild zur&uuml;ck, eine 1 steht f&uuml;r</span>
+<span class="comment">%Kantendetektion</span>
+lChannel=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+
+BW = edge(lChannel,<span class="string">'Sobel'</span>,thresholdSobel,<span class="string">'both'</span>);
+<span class="comment">%imshow(BW);</span>
+<span class="comment">% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer</span>
+<span class="comment">% notierten 1 befindet sich eine Kante. Nun muss diese Kante und nur diese</span>
+<span class="comment">% Kante versch&auml;rft werden. Also nimmt man das Originalbild und schreibt an</span>
+<span class="comment">% Stellen an den man eine Kante detektiert hatte im BW bild, den Wert des gesch&auml;rften L-Channels</span>
+<span class="comment">% Und schreibt diesen in das LAB Bild um so ein gesch&auml;rfte Kanten zu erhalten.</span>
+
+
+<span class="comment">%Alternativ: Anlegen eines Gradientenoperators, dieser gibt Bin&auml;r-Bild zur&uuml;ck, eine 1 steht f&uuml;r</span>
+<span class="comment">%Kantendetektion</span>
+thresholdCanny=0.05;
+sigma=2^.5
+
+<span class="comment">%Paramter sigma_local^2 / (sigma_local^2 + sigma_noise^2) liefert keine</span>
+<span class="comment">%zufriedenstellenden Ergebnisse, deshalb Nutzung eines Canny-Filters,</span>
+<span class="comment">%welcher einem Gradienten-Operator mit Schwellwert</span>
+BW = edge(lChannel,<span class="string">'Canny'</span>,[0.1,0.15], sigma);
+ imdisplay(BW, <span class="string">'Kantendetektor Canny '</span>,1.0);
+ assignin(<span class="string">'base'</span>,<span class="string">'BW'</span>,BW);
+ handles.metricdata.input.BW=BW;
+
+
+
+<span class="keyword">function</span> edit1_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit1 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'String') returns contents of edit1 as text</span>
+<span class="comment">%        str2double(get(hObject,'String')) returns contents of edit1 as a double</span>
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> edit1_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit1 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: edit controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+
+
+
+<span class="keyword">function</span> edit2_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit2 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'String') returns contents of edit2 as text</span>
+<span class="comment">%        str2double(get(hObject,'String')) returns contents of edit2 as a double</span>
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> edit2_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit2 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: edit controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+
+
+<span class="comment">% --- Executes on slider movement.</span>
+<span class="keyword">function</span> slider6_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider6 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'Value') returns position of slider</span>
+<span class="comment">%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider</span>
+thresholdSobel=get(hObject,<span class="string">'Value'</span>);
+thresholdSobel=thresholdSobel*10;
+lChannel=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+
+BW = edge(lChannel,<span class="string">'Sobel'</span>,thresholdSobel,<span class="string">'both'</span>);
+assignin(<span class="string">'base'</span>,<span class="string">'BW'</span>,BW);
+set(handles.edit5,<span class="string">'String'</span>,thresholdSobel);
+ imshow(BW, <span class="string">'Parent'</span>,handles.axes1);
+
+<span class="comment">%imshow(BW);</span>
+<span class="comment">% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer</span>
+<span class="comment">% notierten 1 befindet sich eine Kante. Nun muss diese Kante und nur diese</span>
+<span class="comment">% Kante versch&auml;rft werden. Also nimmt man das Originalbild und schreibt an</span>
+<span class="comment">% Stellen an den man eine Kante detektiert hatte im BW bild, den Wert des gesch&auml;rften L-Channels</span>
+<span class="comment">% Und schreibt diesen in das LAB Bild um so ein gesch&auml;rfte Kanten zu erhalten.</span>
+
+
+<span class="comment">%Alternativ: Anlegen eines Gradientenoperators, dieser gibt Bin&auml;r-Bild zur&uuml;ck, eine 1 steht f&uuml;r</span>
+<span class="comment">%Kantendetektion</span>
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> slider6_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider6 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: slider controls usually have a light gray background.</span>
+<span class="keyword">if</span> isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,[.9 .9 .9]);
+<span class="keyword">end</span>
+
+
+<span class="comment">% --- Executes on slider movement.</span>
+<span class="keyword">function</span> slider7_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider7 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'Value') returns position of slider</span>
+<span class="comment">%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider</span>
+thresholdCanny=get(hObject,<span class="string">'Value'</span>);
+thresholdCanny=thresholdCanny*2^.5*2;
+sigma=thresholdCanny;
+lChannel=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+<span class="comment">%Paramter sigma_local^2 / (sigma_local^2 + sigma_noise^2) liefert keine</span>
+<span class="comment">%zufriedenstellenden Ergebnisse, deshalb Nutzung eines Canny-Filters,</span>
+<span class="comment">%welcher einem Gradienten-Operator mit Schwellwert</span>
+BW = edge(lChannel,<span class="string">'Canny'</span>,[0.1,0.15], sigma);
+assignin(<span class="string">'base'</span>,<span class="string">'BW'</span>,BW);
+ imshow(BW, <span class="string">'Parent'</span>,handles.axes1);
+ set(handles.edit4,<span class="string">'String'</span>,sigma);
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> slider7_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to slider7 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: slider controls usually have a light gray background.</span>
+<span class="keyword">if</span> isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,[.9 .9 .9]);
+<span class="keyword">end</span>
+
+
+
+<span class="keyword">function</span> edit4_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit4 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'String') returns contents of edit4 as text</span>
+<span class="comment">%        str2double(get(hObject,'String')) returns contents of edit4 as a double</span>
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> edit4_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit4 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: edit controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+
+
+<span class="comment">% --- Executes on button press in pushbutton4.</span>
+<span class="keyword">function</span> pushbutton4_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to pushbutton4 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+input=evalin(<span class="string">'base'</span>,<span class="string">'input'</span>);
+myControl=evalin(<span class="string">'base'</span>,<span class="string">'myControl'</span>);
+labTemp=evalin(<span class="string">'base'</span>,<span class="string">'labTemp'</span>);
+lChannelOrig=input.lChannel;
+labTemp(:,:,1)=lChannelOrig(:,:);
+
+assignin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>,lChannelOrig);
+theXYZ4 = imLab2XYZ(labTemp);
+RGBRESETed= imMatMul( theXYZ4, myControl.XYZ2RGB);
+ imshow(RGBRESETed, <span class="string">'Parent'</span>,handles.axes1);
+ set(handles.slider1,<span class="string">'Value'</span>,0.1);
+set(handles.slider2,<span class="string">'Value'</span>,0.5);
+va=1;
+va2=1;
+set(handles.edit1,<span class="string">'String'</span>,va2);
+set(handles.edit2,<span class="string">'String'</span>,va);
+ imshow(RGBRESETed, <span class="string">'Parent'</span>,handles.axes1);
+
+
+<span class="comment">% --- Executes on button press in pushbutton5.</span>
+<span class="keyword">function</span> pushbutton5_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to pushbutton5 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+noise=evalin(<span class="string">'base'</span>,<span class="string">'lChannelOrig'</span>);
+myControl=evalin(<span class="string">'base'</span>,<span class="string">'myControl'</span>);
+
+lChannel = wiener2(noise,[4 4]);
+input=evalin(<span class="string">'base'</span>,<span class="string">'input'</span>);
+noisedLab=input.noisedLab;
+noisedLab(:,:,1)=lChannel(:,:);
+<span class="comment">%assignin('base','lChannelOrig',lChannelOrig);</span>
+theXYZ4 = imLab2XYZ(noisedLab);
+RGBRESETed= imMatMul( theXYZ4, myControl.XYZ2RGB);
+set(handles.slider1,<span class="string">'Value'</span>,0.1);
+set(handles.slider2,<span class="string">'Value'</span>,0.5);
+va=0.5;
+va2=0.1;
+set(handles.edit1,<span class="string">'String'</span>,va2);
+set(handles.edit2,<span class="string">'String'</span>,va);
+ imshow(RGBRESETed, <span class="string">'Parent'</span>,handles.axes1);
+
+
+
+<span class="keyword">function</span> edit5_Callback(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit5 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    structure with handles and user data (see GUIDATA)</span>
+
+<span class="comment">% Hints: get(hObject,'String') returns contents of edit5 as text</span>
+<span class="comment">%        str2double(get(hObject,'String')) returns contents of edit5 as a double</span>
+
+
+<span class="comment">% --- Executes during object creation, after setting all properties.</span>
+<span class="keyword">function</span> edit5_CreateFcn(hObject, eventdata, handles)
+<span class="comment">% hObject    handle to edit5 (see GCBO)</span>
+<span class="comment">% eventdata  reserved - to be defined in a future version of MATLAB</span>
+<span class="comment">% handles    empty - handles not created until after all CreateFcns called</span>
+
+<span class="comment">% Hint: edit controls usually have a white background on Windows.</span>
+<span class="comment">%       See ISPC and COMPUTER.</span>
+<span class="keyword">if</span> ispc &amp;&amp; isequal(get(hObject,<span class="string">'BackgroundColor'</span>), get(0,<span class="string">'defaultUicontrolBackgroundColor'</span>))
+    set(hObject,<span class="string">'BackgroundColor'</span>,<span class="string">'white'</span>);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="DBT_fin_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function varargout = DBT_fin(varargin)
+% DBT_FIN MATLAB code for DBT_fin.fig
+%      DBT_FIN, by itself, creates a new DBT_FIN or raises the existing
+%      singleton*.
+%
+%      H = DBT_FIN returns the handle to a new DBT_FIN or the handle to
+%      the existing singleton*.
+%
+%      DBT_FIN('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in DBT_FIN.M with the given input arguments.
+%
+%      DBT_FIN('Property','Value',...) creates a new DBT_FIN or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before DBT_fin_OpeningFcn gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to DBT_fin_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
+
+% Edit the above text to modify the response to help DBT_fin
+
+% Last Modified by GUIDE v2.5 19-Oct-2016 13:15:04
+
+% Begin initialization code - DO NOT EDIT
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @DBT_fin_OpeningFcn, ...
+                   'gui_OutputFcn',  @DBT_fin_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+    gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+% REPLACE_WITH_DASH_DASH- Executes just before DBT_fin is made visible.
+function DBT_fin_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to DBT_fin (see VARARGIN)
+
+% Choose default command line output for DBT_fin
+handles.output = hObject;
+
+% Update handles structure
+guidata(hObject, handles);
+
+% UIWAIT makes DBT_fin wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+
+% REPLACE_WITH_DASH_DASH- Outputs from this function are returned to the command line.
+function varargout = DBT_fin_OutputFcn(hObject, eventdata, handles) 
+% varargout  cell array for returning output args (see VARARGOUT);
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+
+% REPLACE_WITH_DASH_DASH- Executes on button press in pushbutton1.
+function pushbutton1_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+[myTotalFileName, myStatus] = getRawFile4Read( '*.*');
+if myStatus==0
+    return;
+end
+
+[ theRGB, myHeader] = imread( myTotalFileName);
+
+%Auslesen der Image-Dimensionen
+[width,height,z1] = size(theRGB);
+imshow(theRGB, 'Parent', handles.axes1);
+assignin('base','width',width);
+assignin('base','height',height);
+assignin('base','theRGB',theRGB);
+input.width=width;
+input.height=height;
+%Umwandlung in lineares RGB
+theRGB = im2double (theRGB);
+theRGB = - log10(theRGB);
+linRGB = 10.^(- theRGB);
+
+
+
+%Darstellen der RGB-Datei, der Originammmmmmmmmmmmmmmmmmmmmmmm ml-Datei also 
+%imdisplay(linRGB, 'linRGB Original',1.0); 
+
+%Umwandlung in (Agfa-)Lab durch Wandlung in XYZ-Werte und Übertragung
+%dieser in den Lab-Raum.
+%Agfa-Lab ist Lab, bitte belehren Sie mich eines besseren wenn Sie es
+%können.
+
+RGB2Lab = [1/3, 1/3, 1/3; 1/2, -1/2, 0; 1/4, 1/4, -1/2];
+
+RGB2XYZ =[0.5767309,  0.1855540,  0.1881852;
+                        0.2973769,  0.6273491 , 0.0752741;
+                        0.0270343,  0.0706872 , 0.9911085];
+XYZ2RGB = inv(RGB2XYZ);
+ 
+theXYZ = imMatMul( linRGB,RGB2XYZ);
+theLab= imXYZ2Lab(theXYZ);
+
+%Erstellen einer Kopie für das gefilterte Bild 
+%Rücktransformation in anderen Farbraum zu Testzwecken ob Transformation
+%vollzogen
+
+theTestforRightConversationMatrix= theLab;      
+
+ %Erstellen einer Kopie in die dann der angepasste L-Channel eingefügt
+ %wird.
+labSharpened = theLab;
+  
+noisedLab     = theLab;
+  
+%Separieren des Luminance-Channels. Dieser ist definitiv in Channel 1 zu
+%finden, da in Channel 2 und 3 negative sowie positive Werte zu finden
+%sind. Dies ist logisch wenn man bedenkt, dass sich der Farbraum von -a bis +a sowie -b bis +b erstrecken kann. Das Maximimum in Channel 1 beträgt ebenso 100, was für den
+%LAB-CHannel in CHannel 1 spricht.
+
+lChannel=theLab(:,:,1);
+%    imdisplay(theLab(:,:,1), 'the l channel ',2.2); 
+input.theRGB=theRGB;
+input.theXYZ=theXYZ;
+input.width=width;
+input.height=height;
+input.theLab=theLab;
+input.lChannel=lChannel;
+input.lChannelTemp=lChannel;
+input.noisedLab  =theLab;
+labTemp=theLab;
+myControl = buildControlDataIE();
+assignin('base','myControl',myControl);
+assignin('base','input',input);
+assignin('base','labTemp',labTemp);
+handles.metricdata.input = input;
+handles.metricdata.myControl = myControl;
+handles.metricdata.input.lChannelTempNoise=lChannel;
+
+
+assignin('base','lChannelTemp',lChannel);
+
+assignin('base','lChannelOrig',lChannel);
+guidata(hObject,handles);
+
+clear BW;
+
+
+% REPLACE_WITH_DASH_DASH- Executes on slider movement.
+function slider1_Callback(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+  
+%Erstellen eines Binomialfilters 7. Ordnung  
+    h = [1/2 1/2];
+    lChannelTemp = evalin('base','lChannelTemp'); 
+binomialCoeff = conv(h,h);
+for n = 1:7
+    binomialCoeff = conv(binomialCoeff,h);
+end
+myControl=evalin('base','myControl');
+lChannel=evalin('base','lChannelOrig');
+labTemp=evalin('base','labTemp');
+width=handles.metricdata.input.width;
+height=handles.metricdata.input.height;
+
+%Filtern des L-Channels und schreiben in binomiaLfiltered
+binomiaLfiltered = filter(binomialCoeff, 1, lChannel);
+
+%Erstellen eines geschärften LChannels durch Addition hoher Frequenzen
+%Schritt 1: Erstellen der Maske
+lChannelSharp=lChannel-binomiaLfiltered;
+
+%Schritt 2: Addition des geschärften Kanten-Bereichs zum Original L-Channel in Abhängigkeit
+% von SHPEdge, 
+% Bei SHPEdge =1 keine Veränderung, wie verlangt
+SHPEdge=get(hObject,'Value');
+SHPEdge=SHPEdge*5;
+kk=get(hObject,'Max');
+disp(SHPEdge);
+disp(kk);
+if SHPEdge==1
+    lChannelNewKante=lChannel;
+else
+    lChannelNewKante=lChannel;
+lChannelNewKante=lChannelSharp*(SHPEdge-1)+lChannel;
+end
+
+%Schritt 3: Addition des geschärften Korn-Bereichs zum Original L-Channel in Abhängigkeit
+% von SHPArea, 
+% Bei SHPArea =1 keine Veränderung, wie verlangt
+
+BW = evalin('base','BW'); 
+for W=10:width
+    for H=10:height
+        if (BW(W,H)==1 )
+          
+            if lChannelNewKante(W,H)>100;
+                disp(lChannelNewKante(W,H));
+               lChannelNewKante(W,H)=100;
+            end
+               
+               
+            lChannelTemp(W,H)=lChannelNewKante(W,H);
+             labTemp(W,H,1) =  lChannelTemp(W,H);
+             
+        
+    end
+end
+end
+assignin('base','lChannelTemp',lChannelTemp);
+assignin('base','labTemp',labTemp);
+%Anzeigen des verrauschten Bildes durch Rücktransformation zu LAB und RGB
+ min=get(hObject,'Min');max=get(hObject,'Max');
+ disp (min); disp (max);
+ fog=get(hObject,'Value');disp(fog);
+theXYZ4 = imLab2XYZ(labTemp);
+theRGBSharp3= imMatMul( theXYZ4, myControl.XYZ2RGB); 
+ 
+%puts the slider value into the edit text component 
+set(handles.edit1,'String',SHPEdge); 
+
+
+imshow(theRGBSharp3, 'Parent', handles.axes1);  
+
+
+
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function slider1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+uicontrol('Style', 'slider', 'Min',0,'Max',1, 'SliderStep',[0.01 0.3], 'Value', 1);
+
+
+% REPLACE_WITH_DASH_DASH- Executes on slider movement.
+function slider2_Callback(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+  
+%Erstellen eines Binomialfilters 7. Ordnung  
+ h = [1/2 1/2];
+binomialCoeff = conv(h,h);
+for n = 1:7
+    binomialCoeff = conv(binomialCoeff,h);
+end
+lChannelTemp=evalin('base','lChannelTemp');
+lChannel=evalin('base','lChannelOrig');
+labTemp=evalin('base','labTemp');
+BW=evalin('base','BW');
+
+
+width=handles.metricdata.input.width;
+height=handles.metricdata.input.height;
+
+
+
+%Filtern des L-Channels und schreiben in binomiaLfiltered
+binomiaLfiltered = filter(binomialCoeff, 1, lChannel);
+
+%Erstellen eines geschärften LChannels durch Addition hoher Frequenzen
+%Schritt 1: Erstellen der Maske
+lChannelSharp=lChannel-binomiaLfiltered;
+
+SHPArea=get(hObject,'Value');
+SHPArea=SHPArea*2;
+lChannelNewKorn=lChannelSharp*(SHPArea-1)+lChannel;
+
+
+%imshow(BW);
+% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer
+% notierten 0 befindet sich ein Korn. Nun muss dieses Korn und nur diese
+% Korn verschärft werden. Also nimmt man das Originalbild und schreibt an
+% Stellen an den man eine Korn detektiert hatte im BW bild, den Wert des geschärften L-Channels
+% Und schreibt diesen in das LAB Bild um so ein geschärftes Korn zu erhalten.
+for W=10:width
+    for H=10:height
+        if (BW(W,H)==0 )
+            
+            if lChannelNewKorn(W,H)>100;
+                disp(lChannelNewKorn(W,H));
+               lChannelNewKorn(W,H)=100;
+            end
+          lChannelTemp(W,H)=lChannelNewKorn(W,H);
+             labTemp(W,H,1) =  lChannelTemp(W,H);
+        
+    end
+end
+end
+
+
+assignin('base','lChannelTemp',lChannelTemp);
+assignin('base','labTemp',labTemp);
+
+%Anzeigen des verrauschten Bildes durch Rücktransformation zu LAB und RGB
+
+theXYZ8 = imLab2XYZ(labTemp);
+myControl=handles.metricdata.myControl;
+theRGBSharp= imMatMul( theXYZ8, myControl.XYZ2RGB); 
+ 
+
+
+
+%puts the slider value into the edit text component 
+set(handles.edit2,'String',SHPArea); 
+imshow(theRGBSharp, 'Parent', handles.axes1);  
+
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function slider2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+uicontrol('Style', 'slider', 'Min',0,'Max',1, 'SliderStep',[0.01 0.3], 'Value', 1);
+
+
+
+
+
+
+
+
+
+% REPLACE_WITH_DASH_DASH- Executes on slider movement.
+function slider3_Callback(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+    
+%Auftragen eines weissen Rauschens auf LChannel, vo n daher normieren auf
+%Werte zwiscehn 0 und 1 ( Teilen durch 100)
+inputm=evalin('base','input');
+noisedLab=inputm.noisedLab;
+inputm=inputm.lChannel;
+slider=get(hObject,'Max');
+disp(slider);
+myControl=handles.metricdata.myControl;
+
+sigmaNoise=0;
+sigmaNoise=get(hObject,'Value');
+
+noise=inputm./100;
+lChannelnoiesd = imnoise(noise,'gaussian',0,sigmaNoise/100); 
+
+%Rücktransformation auf Ursprungszustand durch multiplizieren mit 100
+lChannelnoiesd=lChannelnoiesd.*100;
+
+% Schreiben des vernoisten Channel in das Bild noisedLab
+noisedLab(:,:,1)=lChannelnoiesd(:,:);
+
+%Anzeigen des verrauschten Bildes durch Rücktransformation zu LAB und RGB
+assignin('base','noisedLab',noisedLab);
+assignin('base','lChannelOrig',lChannelnoiesd(:,:));
+theXYZ4 = imLab2XYZ(noisedLab);
+theRGBNOIsed= imMatMul( theXYZ4, myControl.XYZ2RGB); 
+   
+handles.metricdata.input.lChannelTemp=lChannelnoiesd(:,:);   
+
+%handles.metricdata.input.lChanneltemp=lChannelnoiesd(:,:);
+imshow(theRGBNOIsed, 'Parent', handles.axes1);
+
+
+
+
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function slider3_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+   
+end
+uicontrol('Style', 'slider', 'Min',0,'Max',1  , 'SliderStep',[0.01 0.3], 'Value', 0);
+
+
+% REPLACE_WITH_DASH_DASH- Executes on button press in pushbutton2.
+function pushbutton2_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+%Anlegen eines SobelFilters, dieser gibt BW-Bild zurück, eine 1 steht für
+%Kantendetektion
+lChannel=evalin('base','lChannelOrig');
+
+BW = edge(lChannel,'Sobel',thresholdSobel,'both');
+%imshow(BW);
+% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer
+% notierten 1 befindet sich eine Kante. Nun muss diese Kante und nur diese
+% Kante verschärft werden. Also nimmt man das Originalbild und schreibt an
+% Stellen an den man eine Kante detektiert hatte im BW bild, den Wert des geschärften L-Channels
+% Und schreibt diesen in das LAB Bild um so ein geschärfte Kanten zu erhalten.
+
+
+%Alternativ: Anlegen eines Gradientenoperators, dieser gibt Binär-Bild zurück, eine 1 steht für
+%Kantendetektion
+thresholdCanny=0.05;
+sigma=2^.5
+
+%Paramter sigma_local^2 / (sigma_local^2 + sigma_noise^2) liefert keine
+%zufriedenstellenden Ergebnisse, deshalb Nutzung eines Canny-Filters,
+%welcher einem Gradienten-Operator mit Schwellwert
+BW = edge(lChannel,'Canny',[0.1,0.15], sigma);
+ imdisplay(BW, 'Kantendetektor Canny ',1.0); 
+ assignin('base','BW',BW);
+ handles.metricdata.input.BW=BW; 
+
+
+
+function edit1_Callback(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit1 as text
+%        str2double(get(hObject,'String')) returns contents of edit1 as a double
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function edit1_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function edit2_Callback(hObject, eventdata, handles)
+% hObject    handle to edit2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit2 as text
+%        str2double(get(hObject,'String')) returns contents of edit2 as a double
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function edit2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% REPLACE_WITH_DASH_DASH- Executes on slider movement.
+function slider6_Callback(hObject, eventdata, handles)
+% hObject    handle to slider6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+thresholdSobel=get(hObject,'Value');
+thresholdSobel=thresholdSobel*10;
+lChannel=evalin('base','lChannelOrig');
+
+BW = edge(lChannel,'Sobel',thresholdSobel,'both');
+assignin('base','BW',BW);
+set(handles.edit5,'String',thresholdSobel); 
+ imshow(BW, 'Parent',handles.axes1); 
+ 
+%imshow(BW);
+% Nun muss das BW Bild abgegangen werden, an den Stellen mit einer
+% notierten 1 befindet sich eine Kante. Nun muss diese Kante und nur diese
+% Kante verschärft werden. Also nimmt man das Originalbild und schreibt an
+% Stellen an den man eine Kante detektiert hatte im BW bild, den Wert des geschärften L-Channels
+% Und schreibt diesen in das LAB Bild um so ein geschärfte Kanten zu erhalten.
+
+
+%Alternativ: Anlegen eines Gradientenoperators, dieser gibt Binär-Bild zurück, eine 1 steht für
+%Kantendetektion
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function slider6_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% REPLACE_WITH_DASH_DASH- Executes on slider movement.
+function slider7_Callback(hObject, eventdata, handles)
+% hObject    handle to slider7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+thresholdCanny=get(hObject,'Value');
+thresholdCanny=thresholdCanny*2^.5*2;
+sigma=thresholdCanny;
+lChannel=evalin('base','lChannelOrig');
+%Paramter sigma_local^2 / (sigma_local^2 + sigma_noise^2) liefert keine
+%zufriedenstellenden Ergebnisse, deshalb Nutzung eines Canny-Filters,
+%welcher einem Gradienten-Operator mit Schwellwert
+BW = edge(lChannel,'Canny',[0.1,0.15], sigma);
+assignin('base','BW',BW);
+ imshow(BW, 'Parent',handles.axes1); 
+ set(handles.edit4,'String',sigma); 
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function slider7_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider7 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+
+function edit4_Callback(hObject, eventdata, handles)
+% hObject    handle to edit4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit4 as text
+%        str2double(get(hObject,'String')) returns contents of edit4 as a double
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function edit4_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% REPLACE_WITH_DASH_DASH- Executes on button press in pushbutton4.
+function pushbutton4_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton4 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+input=evalin('base','input'); 
+myControl=evalin('base','myControl'); 
+labTemp=evalin('base','labTemp'); 
+lChannelOrig=input.lChannel;
+labTemp(:,:,1)=lChannelOrig(:,:);
+
+assignin('base','lChannelOrig',lChannelOrig);
+theXYZ4 = imLab2XYZ(labTemp);
+RGBRESETed= imMatMul( theXYZ4, myControl.XYZ2RGB); 
+ imshow(RGBRESETed, 'Parent',handles.axes1); 
+ set(handles.slider1,'Value',0.1);
+set(handles.slider2,'Value',0.5);
+va=1;
+va2=1;
+set(handles.edit1,'String',va2);
+set(handles.edit2,'String',va);
+ imshow(RGBRESETed, 'Parent',handles.axes1); 
+
+
+% REPLACE_WITH_DASH_DASH- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+noise=evalin('base','lChannelOrig');
+myControl=evalin('base','myControl');
+
+lChannel = wiener2(noise,[4 4]);
+input=evalin('base','input'); 
+noisedLab=input.noisedLab;
+noisedLab(:,:,1)=lChannel(:,:);
+%assignin('base','lChannelOrig',lChannelOrig);
+theXYZ4 = imLab2XYZ(noisedLab);
+RGBRESETed= imMatMul( theXYZ4, myControl.XYZ2RGB); 
+set(handles.slider1,'Value',0.1);
+set(handles.slider2,'Value',0.5);
+va=0.5;
+va2=0.1;
+set(handles.edit1,'String',va2);
+set(handles.edit2,'String',va);
+ imshow(RGBRESETed, 'Parent',handles.axes1); 
+
+
+
+function edit5_Callback(hObject, eventdata, handles)
+% hObject    handle to edit5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit5 as text
+%        str2double(get(hObject,'String')) returns contents of edit5 as a double
+
+
+% REPLACE_WITH_DASH_DASH- Executes during object creation, after setting all properties.
+function edit5_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+##### SOURCE END #####
+--></body></html>

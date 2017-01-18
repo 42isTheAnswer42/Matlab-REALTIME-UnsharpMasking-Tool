@@ -1,0 +1,6 @@
+function theFieldValue = getFieldOfUserData( theObjectHandle, theFieldName)
+myNumObjects = length( theObjectHandle);
+for i=1:myNumObjects
+myUserData = get( theObjectHandle, 'UserData');
+theFieldValue = getFieldFromName( myUserData, theFieldName);
+end

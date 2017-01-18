@@ -1,0 +1,23 @@
+function theMarkers = setMarkers( theNumMarkers)
+
+
+
+
+ok=0; 
+while ok == 0
+	% Marker setzen
+	[x,y] = ginput( 4);
+	
+	% Gültigkeit prüfen
+	if size( x, 1) == 4
+		ok = 1;
+	else
+		display( 'Input of Markers invalid. Mark the centers of the 4 patches at the corners of the Testchart.');
+	end
+end
+
+myMarkers.Num = 4;
+myMarkers.X = x;
+myMarkers.Y = y;
+
+theMarkers = myMarkers;

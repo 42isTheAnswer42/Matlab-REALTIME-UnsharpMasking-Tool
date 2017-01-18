@@ -1,0 +1,19 @@
+function theValidTaskList = buildTaskList( theTaskList, theTaskHandle, theOutputList)
+
+if isempty( theOutputList)
+    theValidTaskList = [];
+    return;
+end
+
+myNumOutputs = size( theOutputList, 2);
+
+%die gültige TaskList für unseren Task kann nur aus vorangegangenen
+%Tasks bestehen:
+for i=1: theTaskHandle-1
+    myTask = theTaskList( i);
+    myTask.Algo.Data.Output = theOutputList( i);
+    theValidTaskList( i) = myTask;
+end
+
+
+    

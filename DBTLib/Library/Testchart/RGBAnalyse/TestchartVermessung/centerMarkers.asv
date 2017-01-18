@@ -1,0 +1,133 @@
+function theNewMarkers = centerMarkers( theTestchartImage, theOldMarkers, theTestchartControl)
+myThreshold = 0.8;
+myX = uint16( theTestchartControl.Markers.X);
+myY = uint16( theTestchartControl.Markers.Y);
+myNum = size( myX, 1);
+
+myXCenter = myX;
+myYCenter = myY;
+
+[myYMax, myXMax, Colors] = size( theTestchartImage);
+
+for i=1:myNum
+	[myXCenter( i), myYCenter( i)] = centerMarker( theTestchartImage, [myX( i), myY( i)], theTestchartControl);
+	myColor = theTestchartImage( myY( i), myX( i), :);
+	
+	ZeileMinus = myY( i)-1;
+	Abbruch = 0;
+	while( ZeileMinus>1 && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( ZeileMinus, myX( i), :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			ZeileMinus = ZeileMinus - 1;
+		end
+	end
+
+	ZeilePlus = myY( i)+1;
+	Abbruch = 0;
+	while( ZeilePlus<myYMax && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( ZeilePlus, myX( i), :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			ZeilePlus = ZeilePlus + 1;
+		end
+	end
+	
+	ZeileCenter = (ZeileMinus + ZeilePlus) / 2;
+
+	SpalteMinus = myX( i)-1;
+	Abbruch = 0;
+	while( SpalteMinus>1 && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( myY( i), SpalteMinus, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			SpalteMinus = SpalteMinus - 1;
+		end
+	end
+
+	SpaltePlus = myX( i)+1;
+	Abbruch = 0;
+	while( SpaltePlus<myXMax && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( myY( i), SpaltePlus, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			SpaltePlus = SpaltePlus + 1;
+		end
+	end
+
+	SpalteCenter = (SpalteMinus + SpaltePlus) / 2;
+	
+end %for
+
+end % centerMarkers
+
+
+
+function 	[theXCenter, theYCenter] = centerMarker( theTestchartImage, theXY, theTestchartControl)
+	theX = theXY( 1);
+	
+	myColor = theTestchartImage( theY, theX, :);
+	
+	ZeileMinus = theY-1;
+	Abbruch = 0;
+	while( ZeileMinus>1 && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( ZeileMinus, theX, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			ZeileMinus = ZeileMinus - 1;
+		end
+	end
+
+	ZeilePlus = theY+1;
+	Abbruch = 0;
+	while( ZeilePlus<myYMax && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( ZeilePlus, theX, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			ZeilePlus = ZeilePlus + 1;
+		end
+	end
+	
+	ZeileCenter = (ZeileMinus + ZeilePlus) / 2;
+
+	SpalteMinus = theX-1;
+	Abbruch = 0;
+	while( SpalteMinus>1 && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( theY, SpalteMinus, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			SpalteMinus = SpalteMinus - 1;
+		end
+	end
+
+	SpaltePlus = theX+1;
+	Abbruch = 0;
+	while( SpaltePlus<myXMax && Abbruch==0)
+		if colorDifferenceOverThreshold( myColor, theTestchartImage( theY, SpaltePlus, :), myThreshold) == 1
+			Abbruch = 1;
+		else
+			SpaltePlus = SpaltePlus + 1;
+		end
+	end
+
+	SpalteCenter = (SpalteMinus + SpaltePlus) / 2;
+	
+	theXCenter = SpalteCenter;
+	theYCenter = ZeileCenter;
+
+end %centerMarker
+	
+	
+
+
+function theFlagOverThreshold = colorDifferenceOverThreshold( theColor, theDifColor, theThreshold)
+[myY, myXTimesColors] = size( theColor);
+myColorDif = theColor - theDifColor;
+
+myColorVector = reshape( double( theColor), myY, myXTimesColors);
+myColorDifVector = reshape( double( myColorDif), myY, myXTimesColors);
+
+myRelDif = norm( myColorDifVector) / norm( myColorVector);
+theFlagOverThreshold = myRelDif > (1-theThreshold);
+
+end %colorDifferenceOverThreshold

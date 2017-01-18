@@ -1,0 +1,23 @@
+function plot1D3RGB( theCurves, theXGrid, theWinTitle)
+%Usage: plot1D3RGB( theCurves, theXGrid, theWinTitle);
+%Optional: theWinTitle
+
+myMaxValueX = max( max( theRGBSoll));
+
+if exist( 'theWinTitle')==0 || isempty(theWinTitle)==1
+    figure();
+else
+    figure( 'Name', theWinTitle, 'NumberTitle', 'off');
+end
+hold on;
+
+plot( 0:myMaxValue*1.1, 0:myMaxValue*1.1, 'k');
+
+plot( theXGrid, theCurves( :, 1), '-r+');
+if size( theCurves, 2) > 1
+	plot( theXGrid, theCurves( :, 2), '-g+');
+end
+if size( theCurves, 2) > 2
+	plot( theXGrid, theCurves( :, 3), '-b+');
+end
+hold off;

@@ -1,0 +1,8 @@
+function resetMatlab( theMainFilePath)
+
+if( exist( 'theMainFilePath'))
+	resumeMatlab( theMainFilePath);
+else
+	resumeMatlab();
+end
+

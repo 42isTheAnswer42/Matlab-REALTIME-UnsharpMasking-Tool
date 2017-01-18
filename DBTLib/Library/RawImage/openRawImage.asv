@@ -1,0 +1,32 @@
+function [theRawImageOut, theTotalFileNameOut] = openRawImage( theTotalFileName, theRawImage)
+%Usage: [theCamRGBImage, theRawImage, theTotalFileName] = openRawImage( theTotalFileName, theRawImage);
+%Optional input: theTotalFileName, theRawImage
+%Optional output: theRawImageOut, theTotalFileNameOut
+%Description: loads raw image and applies demosaicking
+
+if exist( 'theTotalFileName')
+    myTotalFileName = theTotalFileName;
+else
+    %Bildauswahl:
+    [myTotalFileName, myStatus] = getRawFile4Read( '*.CR2');
+    if myStatus==0
+        return;
+    end
+end
+
+
+if exist( 'theRawImage')
+    myRawImage = theRawImage;
+else
+end
+
+% Demosaicking anwenden:
+theCamRGBImage = getDemosaickedRaw( myRawImage, myTotalFileName);
+
+if nargout > 1
+    theRawImageOut = myRawImage;
+end
+
+if nargout > 2
+    theTotalFileNameOut = myTotalFileName;
+end

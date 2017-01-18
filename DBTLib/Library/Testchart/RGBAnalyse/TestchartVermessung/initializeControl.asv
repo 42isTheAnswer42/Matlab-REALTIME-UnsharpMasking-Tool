@@ -1,0 +1,15 @@
+function theControl = initializeControl()
+
+% Anzahl der Patches in X- und Y-Richtung
+theControl.Testchart.NumX = 14;				
+
+% Anzahl der Patches in X- und Y-Richtung
+theControl.Testchart.NumX = 14;				
+theControl.Testchart.NumY = 10;				
+
+% Gültige Ausdehnung bezogen auf den Abstand zwischen 2 Patches
+theControl.Testchart.RelPatchSizeX = 0.5;	
+theControl.Testchart.RelPatchSizeY = 0.5;
+
+% Schwelle zur Zentrierung der Marker:
+theControl.Testchart.CenterThreshold = 0.8;	

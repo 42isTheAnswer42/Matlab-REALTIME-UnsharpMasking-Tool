@@ -1,0 +1,8 @@
+function theApplicationData = getApplicationData( theDataName)
+global Application
+setfield
+if exist( 'theDataName')% && isfield( Application, theDataName)
+    theApplicationData = eval( [ 'Application.', theDataName]);
+else
+    theApplicationData = Application;
+end

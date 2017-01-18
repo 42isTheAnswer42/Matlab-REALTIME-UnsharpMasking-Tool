@@ -1,0 +1,7 @@
+function setApplicationData( theDataName, theNewValue)
+global Application
+
+if exist( 'theDataName')
+    eval( [ 'Application.', theDataName, ' = [];']);	%erst löschen, an
+    eval( [ 'Application.', theDataName, ' = theNewValue;']);
+end

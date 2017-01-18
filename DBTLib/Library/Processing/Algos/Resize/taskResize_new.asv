@@ -1,0 +1,7 @@
+function theTaskResize = taskResize_new( theInputHandleArray, thePredecessorList, theSuccessorList)
+%Input: 
+%Input( 1): ImageObject: ImageType, ImageData
+
+theTaskResize.Algo = algoResize_new();
+theTaskResize.Context = context_new( theInputHandleArray, thePredecessorList, theSuccessorList);
+

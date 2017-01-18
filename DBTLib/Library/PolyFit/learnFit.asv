@@ -1,0 +1,41 @@
+function theKoeffMatrix = learnFit( theAimVals, theSourceVals, theOrder, theStaticMode, theWeights)
+%Usage:	theKoeffMatrix = learnFit( theAimVals, theSourceVals, theOrder, theStaticMode, theWeights);
+%theStaticMode: 'Static' or 'noStatic'
+%Static: with Offset; noStatic: no Offset
+
+if exist( 'theStaticMode', 'var') && ~isempty( theStaticMode)
+	myMode = theStaticMode;	
+else
+	myMode = 'noStatic';	%default no Offset
+end
+
+%Polynom-Basisfunktionen holen:
+myPolynomMatrix = getPolynomMatrix( theSourceVals, theOrder, myMode);
+%Hinweis, daß kein Offset vorgesehen wird (Nullpunktgenauigkeit)
+
+myNumFunc = 
+for i=1:size( theAimVals, 2)
+	
+%Gewichte holen:
+if exist( 'theWeights', 'var') && ~isempty( theWeights)
+	myWeightsX = diag( theWeights( :, 1));
+	myWeightsY = diag( theWeights( :, 2));
+	myWeightsZ = diag( theWeights( :, 3));
+else
+	myWeights = ones( size( theXYZ, 1), 1);
+	myWeightsX = diag( myWeights);
+	myWeightsY = diag( myWeights);
+	myWeightsZ = diag( myWeights);
+end
+
+%Fit:
+% myKoeffX = (inv( myPolynomMatrix' * myWeightsX.^2 * myPolynomMatrix) * myPolynomMatrix' * myWeightsX.^2) * theXYZ( :, 1);
+% myKoeffY = (inv( myPolynomMatrix' * myWeightsY.^2 * myPolynomMatrix) * myPolynomMatrix' * myWeightsY.^2) * theXYZ( :, 2);
+% myKoeffZ = (inv( myPolynomMatrix' * myWeightsZ.^2 * myPolynomMatrix) * myPolynomMatrix' * myWeightsZ.^2) * theXYZ( :, 3);
+myKoeffX = (myWeightsX*myPolynomMatrix)\(myWeightsX*theAimVals( :, 1));
+myKoeffY = (myWeightsY*myPolynomMatrix)\(myWeightsY*theAimVals( :, 2));
+myKoeffZ = (myWeightsZ*myPolynomMatrix)\(myWeightsZ*theAimVals( :, 3));
+
+%Datenübgergabe:
+theKoeffMatrix = [ myKoeffX, myKoeffY, myKoeffZ];
+

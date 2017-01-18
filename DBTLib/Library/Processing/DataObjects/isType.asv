@@ -1,0 +1,12 @@
+function theIsObject = isType( theDataObject_TypeString, theTypeName)
+
+if exist( 'theDataObject') 
+    if isfield( theDataObject, 'Type')
+        %
+        k = strfind( theDataObject.Type, theTypeName);
+    elseif ischar( theDataObject
+else
+    k=[];
+end
+
+theIsObject = ~isempty( k);

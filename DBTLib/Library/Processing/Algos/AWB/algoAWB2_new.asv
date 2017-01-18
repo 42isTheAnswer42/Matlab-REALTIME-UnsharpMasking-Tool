@@ -1,0 +1,41 @@
+function theAlgoAWB = algoAWB_new()
+%Input: 
+
+theAlgoAWB = algo_new( 'AWB');
+
+theAlgoAWB.FuncPtr.getSettings = @algoAWB_getSettings;
+theAlgoAWB.FuncPtr.getInputTypeList = @algoAWB_getInputTypeList;
+theAlgoAWB.FuncPtr.execute = @algoAWB_execute;
+
+
+
+function theAWBSettings = algoAWB_getSettings( theAlgoControl)
+
+theAWBSettings.Settings = theAlgoControl.AWB;
+
+
+
+function theInputTypeList = algoAWB_getInputTypeList()
+
+theInputTypeList( 1) = {[{ 'Log_ab'}]};
+theInputTypeList( 2) = {[{ 'Log_ab'}]};
+
+
+
+function theAlgoAWBOut = algoAWB_execute( theAlgoAWBIn, theSettings, theInput)
+theAlgoAWBOut = theAlgoAWBIn;
+
+%Bildobjekt ist Input
+ImageObject = theInput.Input( 1).Input;
+myImage = ImageObject.Data.ImageData;
+
+%Korrekturwerte der AWB Analyse (vorher)
+Log_ab_AWB = theInput.Input( 2).Input;
+
+%Korrekturwerte von Originalbild abziehen
+myImage( : , :, 1) = myImage( : , :, 1) - Log_ab_AWB( 1) + theSettings.Settings.Delta_a;
+myImage( : , :, 2) = myImage( : , :, 2) - Log_ab_AWB( 2) + theSettings.Settings.Delta_b;
+
+%Datenübergabe
+ImageObject.Data.ImageData = myImage;
+theAlgoAWBOut.Data.Output.Output( 1).Output = ImageObject;

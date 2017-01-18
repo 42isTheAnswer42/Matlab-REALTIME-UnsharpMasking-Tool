@@ -1,0 +1,14 @@
+function theDisplayImage = buildDisplayImageRGB( theImageData, theImgtheDisplayControl)
+
+%Originale Bilddaten anzeigen:
+myGamma = theDisplayControl.Gamma;
+
+% Gammakorrektur und Anzeige
+if( myGamma ~= 1)
+    myGammaLut = uint8( 255 * ((0:2^16-1) / (2^16-1)).^(1/myGamma));
+    theDisplayImage = myGammaLut( im2uint16( theImageData)+1);
+else
+    theDisplayImage = theImageData;
+end
+
+

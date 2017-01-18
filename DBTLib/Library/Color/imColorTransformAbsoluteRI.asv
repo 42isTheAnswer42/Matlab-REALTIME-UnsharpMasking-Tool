@@ -1,0 +1,7 @@
+function theTransformedImage = imColorTransformAbsoluteRI( theInImage, IProf, OProf)
+%Usage: theTransformedImage = imColorTransformAbsoluteRI( theInImage, IProf, OProf);
+%Hint: uses absolute colorimetric rendering intent
+
+% nur eine von beiden:
+theTransformedImage = imColorTransformWindows( theInImage, IProf, OProf);
+%theTransformedImage = imColorTransformMac( theInImage, IProf, OProf);

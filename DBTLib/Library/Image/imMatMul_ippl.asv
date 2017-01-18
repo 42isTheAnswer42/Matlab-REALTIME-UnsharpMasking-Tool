@@ -1,0 +1,9 @@
+function theOutImage = imMatMul_ippl( theInImage, theInMatrix)
+%Usage: theOutImage = imMatMul_ippl( theInImage, theInMatrix);
+%Description: computes OutPixVec = theInMatrix * InPixVec;
+
+R = theInImage( :, :, 1);
+[so(1) so(2) thirdD] = size( theInImage);
+theOutImage = reshape( double( reshape( theInImage, so(1)*so(2), thirdD)) * theInMatrix', ...
+                       so(1), so(2), thirdD);
+

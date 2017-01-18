@@ -1,0 +1,27 @@
+Thema: Adaptive Verschärfung mit Rauschunterdrückung für photographische Bilder
+Vorgabe: Programmierung in Matlab
+
+- Verarbeitungsablauf so einrichten, daß der Algorithmus auf einem Luminanzsignal einer helligkeitsinvarianten Farbdarstellung arbeitet
+- Implementierung des Algorithmus einer adaptiven Verschärfung mit separierbarem Binomialfilter (7 Koeffizienten) zur Tiefpaßfilterung
+
+übt V 9 27-28-29
+
+- 2 Steuerparameter: Schärfe Kanten (1 neutral) SHPEdge, Schärfe Flächen (1 neutral, 0 max. Glättung) SHPArea, 0< SHPEdge,SHPArea < 2, 
+- Realisierung durch Kantendetektor mit verschiedenen Detektionskriterien:
+	- Gradienten-Operator mit Schwellwert
+	- Sobel-Operator mit Schwellwert
+	- lokaler Varianz-Operator: sigma_local^2 / (sigma_local^2 + sigma_noise^2)
+
+- zur eigenen Kontrolle: Einstellung der Parameter, so dass unveränderte Bildübertragung erreicht wird
+
+- Demo der Wirkung von SHPEdge und SHPArea und den verschiedenen Kantenkriterien an Bildbeispielen (Artefakte!)
+
+- Automatische Anpassung an unterschiedliche Rauschpegel im Originalbild (SigmaNoise sei bekannt).
+- Demonstration dieser automatischen Steuerung an Bildbeispielen mit künstlich verrauschten Bildern (Matlab Funktion imnoise()).
+
+- Interpretation der Ergebnisse, Verbesserungsvorschläge
+
+Literatur:
+DBT Vorlesung
+
+
